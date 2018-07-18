@@ -56,12 +56,14 @@ export default class Pages extends PureComponent {
     onLayout: PropTypes.func,
     onScrollEnd: PropTypes.func,
     renderPager: PropTypes.func,
+    getProgress: PropTypes.func,
   };
 
   constructor(props) {
     super(props);
 
     this.onLayout = this.onLayout.bind(this);
+    this.getProgress = this.getProgress.bind(this);
     this.onScroll = this.onScroll.bind(this);
     this.onScrollBeginDrag = this.onScrollBeginDrag.bind(this);
     this.onScrollEndDrag = this.onScrollEndDrag.bind(this);
@@ -114,6 +116,10 @@ export default class Pages extends PureComponent {
     this[name] = ref;
   }
 
+  getProgress(progress){
+    this.props.getProgress(progress);
+  }
+
   onLayout(event) {
     let { width, height } = event.nativeEvent.layout;
     let { onLayout } = this.props;
@@ -142,6 +148,10 @@ export default class Pages extends PureComponent {
       this.onScrollEnd();
 
       this.scrollState = -1;
+    }
+
+    if(progress._value == 1  || progress._value == 0){
+      this.getProgress(progress._value);
     }
   }
 
@@ -260,6 +270,7 @@ export default class Pages extends PureComponent {
         onScroll={this.onScroll}
         onScrollBeginDrag={this.onScrollBeginDrag}
         onScrollEndDrag={this.onScrollEndDrag}
+        getProgress={this.getProgress}
         contentOffset={contentOffset}
         ref={this.updateRef}
       >
