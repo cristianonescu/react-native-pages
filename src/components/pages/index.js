@@ -266,6 +266,7 @@ export default class Pages extends PureComponent {
     return (
       <ScrollView
         {...props}
+        scrollEnabled={false}
         style={[styles.container, style, scrollStyle]}
         onScroll={this.onScroll}
         onScrollBeginDrag={this.onScrollBeginDrag}
